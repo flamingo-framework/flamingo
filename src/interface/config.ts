@@ -31,3 +31,10 @@ export interface ConfigurationInterface {
   router: ConfigRouterInterface;
   static: ConfigStaticInterface;
 }
+
+/* MODULES */
+export interface ModuleInterface {
+  Koa: typeof Koa;
+  Router: typeof Router;
+  static: typeof static_;
+}
