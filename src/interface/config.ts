@@ -23,5 +23,5 @@ export interface ConfigStaticInterface {
 /* CONFIGURATION */
 export interface ConfigurationInterface {
   router: ConfigRouterInterface;
-  static: ConfigRouterInterface;
+  static: ConfigStaticInterface;
 }

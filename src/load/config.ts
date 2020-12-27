@@ -1,17 +1,26 @@
 import {
   ConfigurationInterface,
   ConfigStaticInterface,
+  ConfigRouterInterface,
 } from '../interface/config';
 
 class Config {
-  // readonly storage: ConfigurationInterface;
+  readonly storage: ConfigurationInterface;
   constructor() {
+    const router: ConfigRouterInterface = this.load(
+      'router',
+      './config/router'
+    );
+
     const static_: ConfigStaticInterface = this.load(
       'static',
       './config/static'
     );
 
-    console.log(static_);
+    this.storage = {
+      router,
+      static: static_,
+    };
   }
 
   private load(name: string, path: string) {
