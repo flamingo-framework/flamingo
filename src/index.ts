@@ -1,12 +1,11 @@
-import {Config} from './load/config';
-
-// import Router = require('@koa/router');
+import loadConfiguration = require('./load/config');
+import {ConfigurationInterface} from './interface/config';
 
 class Flamingo {
+  readonly config: ConfigurationInterface;
   constructor() {
     console.log('Hello World from Flamingo!');
-    const config = new Config();
-    console.log(config);
+    this.config = loadConfiguration();
   }
 }
 const flamingo = new Flamingo();

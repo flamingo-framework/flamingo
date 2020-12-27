@@ -1,36 +1,37 @@
 import {
   ConfigurationInterface,
+  ConfigKoaInterface,
   ConfigStaticInterface,
   ConfigRouterInterface,
 } from '../interface/config';
 
-class Config {
-  readonly storage: ConfigurationInterface;
-  constructor() {
-    const router: ConfigRouterInterface = this.load(
-      'router',
-      './config/router'
-    );
-
-    const static_: ConfigStaticInterface = this.load(
-      'static',
-      './config/static'
-    );
-
-    this.storage = {
-      router,
-      static: static_,
-    };
-  }
-
-  private load(name: string, path: string) {
-    try {
-      return require?.main?.require(path);
-    } catch (e) {
-      console.error(`Can't load configuration for module "${name}"`);
-      throw e;
-    }
+function loadConfigFile(name: string, path: string) {
+  try {
+    return require?.main?.require(path);
+  } catch (e) {
+    console.error(`Can't load configuration for module "${name}"`);
+    throw e;
   }
 }
 
-export {Config};
+function loadConfiguration(): ConfigurationInterface {
+  const koa: ConfigKoaInterface = loadConfigFile('koa', './config/koa');
+
+  const router: ConfigRouterInterface = loadConfigFile(
+    'router',
+    './config/router'
+  );
+
+  const static_: ConfigStaticInterface = loadConfigFile(
+    'static',
+    './config/static'
+  );
+
+  return {
+    koa,
+    router,
+    static: static_,
+  };
+}
+
+export = loadConfiguration;
