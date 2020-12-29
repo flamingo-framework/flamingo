@@ -1,12 +1,12 @@
 import loadConfiguration = require('./load/config');
 import loadModule = require('./load/module');
-import {ConfigurationInterface, ModuleInterface} from './interface/config';
-import Koa = require('koa');
+import {ConfigurationInterface} from './interface/config';
+import {ModuleInterface, KoaInterface} from './interface/module';
 
 class Flamingo {
   readonly config: ConfigurationInterface;
   readonly module: ModuleInterface;
-  readonly app: Koa;
+  readonly app: KoaInterface;
   constructor() {
     this.config = loadConfiguration();
     console.log('Flamingo: configuration loaded', this.config);

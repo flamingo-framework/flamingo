@@ -1,28 +1,27 @@
-import Koa = require('koa');
-import Router = require('@koa/router');
-import static_ = require('koa-static');
+import {KoaInterface, RouterInterface, staticInterface} from './module';
+
+interface ConfigEnablableInterface {
+  enable: boolean;
+}
 
 /* KOA */
 export interface ConfigKoaInterface {
-  version: 'default' | typeof Koa;
+  version: 'default' | typeof KoaInterface;
 }
 /* ROUTER */
-export interface ConfigRouterInterface {
-  active: boolean;
-  version: 'default' | typeof Router;
+export interface ConfigRouterInterface extends ConfigEnablableInterface {
+  version: 'default' | typeof RouterInterface;
 }
 
 /* STATIC */
-// in the future more options might be added
-interface static_options extends static_.Options {
+interface staticOptionsInterface extends staticInterface.Options {
   [key: string]: any;
 }
-export interface ConfigStaticInterface {
-  active: boolean;
-  version: 'default' | typeof static_;
+export interface ConfigStaticInterface extends ConfigEnablableInterface {
+  version: 'default' | typeof staticInterface;
 
   path: string;
-  opts?: static_options;
+  opts?: staticOptionsInterface;
 }
 
 /* CONFIGURATION */
@@ -30,11 +29,4 @@ export interface ConfigurationInterface {
   koa: ConfigKoaInterface;
   router: ConfigRouterInterface;
   static: ConfigStaticInterface;
-}
-
-/* MODULES */
-export interface ModuleInterface {
-  Koa: typeof Koa;
-  Router: typeof Router;
-  static: typeof static_;
 }
